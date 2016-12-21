@@ -2,11 +2,26 @@ body{
 	font-size: 18px;
 
 }
+img{
+	max-width: 300px;
+}
 
 
-
-
+.gifButtons{
+	
+}
 
 #search{
 	align-content: right;
+}
+
+
+.gifDiv{
+	margin-bottom: 30px;
+	margin-right: 30px;
+	padding-bottom: 10px;
+	width: 300px;
+	float: left;
+
+	
 }

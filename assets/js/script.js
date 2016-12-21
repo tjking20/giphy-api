@@ -1,17 +1,14 @@
+//still need
+//-pause and resume gif
+//-if button exists, don't add another
+//-if user input is blank don't add button.
+
 $("document").ready(function(){
 	console.log("ready");
 
 //array that will store the movie topics
 var topics = ["sushi", "pizza", "tacos"];
 
-//1. on page load three buttons will appear, as they are hard coded in
-	//- create a function that takes in the topics array and makes buttons
-	//-the function should empty the html gifButtons
-	//-take in the array using a for loop, create buttons 
-	//appending the array value and appending buttons back to the page
-
-//2. create an on click function that captures the value of #userInput and pushes
-// it into the array. then run makeButtons
 
 
 function makeButtons(){
@@ -24,6 +21,7 @@ function makeButtons(){
 		$("#gifButtons").append(buttons);
 	}
 	abraKaGif();
+
 }
 
 makeButtons();
@@ -51,7 +49,9 @@ function abraKaGif(){
 	$(".giphy").on("click", function(){
 		var userVal = $(this).attr("data-value");//targets the button that the client is clicking
 		//uses the data-value of the button to complete the api request
-		var queryURL = "http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=" + userVal;
+		
+		var queryURL = "http://api.giphy.com/v1/gifs/search?q=" +userVal + "&api_key=dc6zaTOxFJmzC";
+		// var queryURL = "http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&rating=pg&tag=" + userVal;
 		
 
 		// Perfoming an AJAX GET request to our queryURL
@@ -60,12 +60,46 @@ function abraKaGif(){
 		method: "GET"
 		}).done(function(response) {
 			console.log(response);
-			var imageUrl = response.data.image_original_url;//provides an image url to the random gif selected
-			//following lines creat an image attach the source of the random url and append it to the gif area.
-			var gif = $("<img>");
-			gif.attr("src", imageUrl);
-			gif.attr("alt", "food image");
-			$('#gifArea').append(gif);
+			$("#gifArea").empty();//empties the gifArea of all previous contents
+
+			for(i=0;i<10;i++){
+				//creates a new image tag and attaches attributes and source
+				var gifDiv= $("<div>");
+				var imageUrl = response.data[i].images.fixed_height_still.url;
+				var gif = $("<img>");
+				gif.attr("src", imageUrl)
+				.attr("alt", "food image")//adds an alt tag
+				.attr("class", "gifImage")
+				.attr("data-still", response.data[i].images.fixed_height_still.url)// adds a source for the still image
+				.attr("data-animate",response.data[i].images.fixed_height.url)// ass a source for the animated image
+				.attr("data-state", "still");//shows that the current state == still
+
+				//captures the gif rating and places it into a new p tag
+				var ratingUrl = response.data[i].rating;
+				var rating =  $("<p>").text("Rating: " + ratingUrl);
+
+				//appends image and rating to a new div
+				gifDiv.append(rating);
+				gifDiv.append(gif);
+				gifDiv.attr("class", "gifDiv")
+
+				//appends gifDivs to the gifArea
+				$("#gifArea").append(gifDiv);
+
+				$(".gifImage").on("click", function(){
+					var state = $(this).attr("data-state")
+					if(state == "still"){
+						$(this).attr("src", $(this).data("animate"));
+						$(this).attr("data-state", "animate");
+					} else if(state == "animate"){
+						$(this).attr("src", $(this).data("still"));
+						$(this).attr("data-state", "still");
+					}
+
+				});
+			}
+
+
 
 		});
 
