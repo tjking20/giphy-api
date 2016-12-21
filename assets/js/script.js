@@ -1,8 +1,7 @@
 $(document).ready(function(){
-	console.log("ready");
 
 	//array that will store the movie topics
-	var topics = ["sushi", "pizza", "tacos"];
+	var topics = ["sushi", "pizza", "tacos", "fried chicken", "pad thai"];
 
 
 
@@ -20,8 +19,7 @@ $(document).ready(function(){
 			//uses the data-value of the button to complete the api request
 			
 			var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +userVal + "&api_key=dc6zaTOxFJmzC";
-
-			
+	
 
 			// Perfoming an AJAX GET request to our queryURL
 			$.ajax({
@@ -84,8 +82,11 @@ $(document).ready(function(){
 	$("#submitButton").on("click", function(){
 		var userInput = $("#userInput").val();
 		console.log(userInput);
+		
 		topics.push(userInput);
+
 		makeButtons();
+
 
 
 		return false;

@@ -7,12 +7,14 @@ img{
 }
 
 
-.gifButtons{
+#gifButtons{
+	background-color: #2A5778; 
+	height: 120px;
 	
 }
 
 #search{
-	align-content: right;
+
 }
 
 
@@ -26,12 +28,14 @@ img{
 	
 }
 
-/*gotta make a whole bunch of bears so this mo fo will update*/
+.giphy{
+	background-color: white;
+	border: 2px solid;
+    border-radius: 25px;
+    color: black;
+    margin-right: 10px;
+    margin-top: 10px;
+    font-weight: 10;
+}
 
-/*gotta make a whole bunch of bears so this mo fo will update*/
 
-/*gotta make a whole bunch of bears so this mo fo will update*/
-
-/*gotta make a whole bunch of bears so this mo fo will update*/
-
-/*gotta make a whole bunch of bears so this mo fo will update*/
